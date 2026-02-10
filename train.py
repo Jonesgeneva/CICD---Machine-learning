@@ -100,7 +100,7 @@ sio.dump(pipe, "Model/drug_pipeline.skops")
 # In[9]:
 
 
-get_ipython().system('pip install skops')
+
 
 
 # In[12]:
