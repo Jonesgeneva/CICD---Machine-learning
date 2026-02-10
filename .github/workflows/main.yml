@@ -28,4 +28,19 @@ jobs:
     - name: Run training script
       run: |
         python train.py
+        
+    - name: Prepare metrics markdown
+      id: prepare
+      run: |
+        echo "## Model Metrics" > announcement.md
+        cat Results/metrics.txt >> announcement.md
+        echo "\n### Confusion Matrix" >> announcement.md
+        echo "![confusion](Results/confusion_matrix.png)" >> announcement.md
 
+    - name: Comment metrics on commit
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit: ${{ github.sha }}
+        body: |
+          $(cat announcement.md)
