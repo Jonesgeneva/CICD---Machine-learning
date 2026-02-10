@@ -39,12 +39,12 @@ jobs:
         echo "\n### Confusion Matrix" >> announcement.md
         echo "![confusion](Results/confusion_matrix.png)" >> announcement.md
 
-   - name: Comment metrics on pull request
-     uses: peter-evans/create-or-update-comment@v4
-     with:
-       token: ${{ secrets.GITHUB_TOKEN }}
-       issue-number: ${{ github.event.pull_request.number }}
-       body: |
-         $(cat announcement.md)
+    - name: Comment metrics on pull request
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          $(cat announcement.md)
 
 
