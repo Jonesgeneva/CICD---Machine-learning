@@ -1,39 +1,25 @@
 name: Continuous Integration
-
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
-
-permissions:
-  contents: write
-  pull-requests: write
-
+  
+permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install CML
-        uses: iterative/setup-cml@v2
-
-      - name: Run Make install
+      - uses: iterative/setup-cml@v2
+      - name: Install Packages
         run: make install
-
-      - name: Run Format
+      - name: Format
         run: make format
-
-      - name: Run Train
+      - name: Train
         run: make train
-
-      - name: Run Evaluation + Comment
+      - name: Evaluation
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make eval
