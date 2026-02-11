@@ -37,7 +37,7 @@ jobs:
         echo "## Model Metrics" > announcement.md
         cat Results/metrics.txt >> announcement.md
         echo "\n### Confusion Matrix" >> announcement.md
-        echo "![confusion](Results/confusion_matrix.png)" >> announcement.md
+        echo "![confusion](Results/model_results.png)" >> announcement.md
 
     - name: Comment metrics on pull request
       if: github.event_name == 'pull_request'
